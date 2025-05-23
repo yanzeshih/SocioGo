@@ -281,7 +281,6 @@
 
         const percentage = Math.round((score / questions.length) * 100);
         let message = "做得好！你掌握了稀少性的基本概念！";
-        let message = "+50xp";
         if (percentage === 100) {
           message = "🌟 完美！很棒哦！";
         } else if (percentage >= 80) {
@@ -301,6 +300,7 @@
 
         scoreDiv.innerHTML = `
            <h1 style="color:#004aad;">🎉 測驗完成！</h1>
+           <h1 style="color:#004aad;">+50XP</h1>
           <p>你的得分是 <strong>${score} / ${questions.length}</strong>（${percentage}%）</p>
           <p>${message}</p>
           <button id="return-btn" onclick="location.href='E1.html'">繼續學習經濟學</button>
