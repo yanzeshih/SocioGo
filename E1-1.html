@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>資源稀少性小測驗</title>
+  <style>
+    body {
+      font-family: "Comic Sans MS", "Arial", sans-serif;
+      background: linear-gradient(to bottom right, #53faff, #0e1eff);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+    }
+    
+    #quiz-container {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      margin-top: 50px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 600px;
+      border: 8px solid #00f7ff;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #004080;
+      text-shadow: 1px 1px 2px white;
+    }
+
+    #question {
+      font-size: 1.3em;
+      margin-bottom: 20px;
+      color: #002e60;
+    }
+
+    #choices button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      font-size: 1.1em;
+      border-radius: 10px;
+      border: 2px solid #8ddbff;
+      background-color: #8ddbff;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.3s;
+    }
+
+    #choices button:hover {
+      background-color: #d5f1ff;
+      transform: scale(1.03);
+    }
+
+    #score, #notification, #question-count {
+      text-align: center;
+      margin-top: 20px;
+      color: black;
+    }
+
+    #notification {
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: bold;
+      transition: all 0.5s ease-in-out;
+      opacity: 0;
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #004080;
+    }
+
+    #notification.show {
+      opacity: 1;
+    }
+
+    .correct {
+      color: green;
+      background-color: #e6ffe6;
+    }
+    .wrong {
+      color: red;
+      background-color: #ffe6e6;
+    }
+
+    .choice-correct {
+      background-color: #a5d6a7 !important;
+    }
+    .choice-wrong {
+      background-color: #ef9a9a !important;
+    }
+
+    #progress-bar {
+      height: 20px;
+      width: 100%;
+      background-color: #d0e7ff;
+      border-radius: 15px;
+      margin-top: 20px;
+      overflow: hidden;
+    }
+
+    #progress {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(to right, #53faff, #4754ff);
+      border-radius: 15px;
+      transition: width 0.3s ease;
+    }
+
+    #return-btn {
+      margin-top: 20px;
+      padding: 12px 25px;
+      font-size: 1.1em;
+      border: none;
+      background-color: #53faff;
+      color: #003366;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    #return-btn:hover {
+      background-color: #4754ff;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    #exit-btn {
+      position: fixed;
+      top: 65px;
+      left: 20px;
+      background-color: #d5eeff;
+      color: #003366;
+      border: 2px solid #d5eeff;
+      padding: 10px 15px;
+      font-size: 1em;
+      border-radius: 10px;
+      cursor: pointer;
+      z-index: 1000;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    #exit-btn:hover {
+      background-color: #29a3f4;
+      color: white;
+      transform: scale(1.05);
+    }
+
+  </style>
+</head>
+<body>
+  <button id="exit-btn" onclick="location.href='E1.html'">← 退出</button>
+  <div id="quiz-container">
+    <h1>資源稀少性快問快答</h1>
+    
+    <div id="question"></div>
+    <div id="choices"></div>
+    <div id="notification"></div>
+    <div id="question-count">第 1 題 / 共 10 題</div>
+    <div id="progress-bar"><div id="progress"></div></div>
+  </div>
+  <div id="score" style="display:none;"></div>
+  <script>
+    const questions = [
+      {
+        question: "什麼是稀少性？",
+        choices: ["資源有限，選擇必要", "物價上升", "科技發達", "貨幣過多"],
+        answer: 0
+      },
+      {
+        question: "你只有 50 元零用錢，要在冰淇淋和漫畫中選一樣。這代表：",
+        choices: ["你不想花錢",  "你討厭選擇","你的資源有限，必須做選擇 ", "你可以同時擁有所有東西"],
+        answer: 2
+      },
+      {
+        question: "資源稀少性表示什麼？",
+        choices: ["我們無法得到所有想要的東西", "我們可以無限制獲得資源", "資源供給永遠超過需求", "金錢能解決一切"],
+        answer: 0
+      },
+      {
+        question: "稀少性會導致？",
+        choices: ["選擇", "浪費", "資源過剩", "無限供應"],
+        answer: 0
+      },
+      {
+        question: "哪一項不是稀少性的例子？",
+        choices: ["陽光", "時間", "金錢", "土地"],
+        answer: 0
+      },
+      {
+        question: "下列哪一項最能代表「稀少性」的情況？",
+        choices: ["空氣在山上到處都有","你的手機剩下 10% 電量",  "太陽每天都會升起", "雨水落在海洋裡"],
+        answer: 1
+      },
+      {
+        question: "稀少性要求我們做什麼？",
+        choices: ["提高消費", "避免浪費", "做出選擇", "儲存金錢"],
+        answer: 2
+      },
+      {
+        question: "哪一項最能代表稀少性影響經濟決策？",
+        choices: ["政府發行更多鈔票", "時間不夠用", "免費資源無限供應", "人們擁有所有物品"],
+        answer: 1
+      },
+      {
+        question: "你有 3 小時的空閒時間，不能同時玩遊戲和看電影。這說明了什麼？",
+        choices: ["時間太多","時間是一種稀少資源",  "玩遊戲很無聊", "電影太長"],
+        answer: 1
+      },
+      {
+        question: "哪一項資源在經濟學上被視為稀少？",
+        choices: ["空氣", "金錢", "太陽光", "資訊"],
+        answer: 1
+      }
+    ];
+
+    let current = 0;
+    let score = 0;
+
+    function loadQuestion() {
+      const q = questions[current];
+      document.getElementById("question").textContent = q.question;
+
+      // 顯示第幾題
+      document.getElementById("question-count").textContent = `第 ${current + 1} 題 / 共 ${questions.length} 題`;
+
+      // 清除按鈕
+      const choicesDiv = document.getElementById("choices");
+      choicesDiv.innerHTML = "";
+      q.choices.forEach((choice, index) => {
+        const btn = document.createElement("button");
+        btn.textContent = choice;
+        btn.onclick = () => checkAnswer(index);
+        choicesDiv.appendChild(btn);
+      });
+
+      // 更新進度條
+      const progress = ((current) / questions.length) * 100;
+      document.getElementById("progress").style.width = progress + "%";
+    }
+
+    function checkAnswer(index) {
+    const q = questions[current];
+    const buttons = document.querySelectorAll('#choices button');
+
+    buttons.forEach((btn, i) => {
+      btn.disabled = true;
+      if (i === q.answer) {
+        btn.classList.add('choice-correct');
+      } else if (i === index && i !== q.answer) {
+        btn.classList.add('choice-wrong');
+      }
+    });
+
+    const isCorrect = index === q.answer;
+    showNotification(isCorrect);
+    if (isCorrect) score++;
+    setTimeout(nextQuestion, 1000);
+    }
+
+    function showNotification(correct) {
+      const note = document.getElementById("notification");
+      note.className = correct ? "correct show" : "wrong show";
+      note.textContent = correct ? "✅ 答對了！" : "❌ 答錯了！";
+      setTimeout(() => note.classList.remove("show"), 1000);
+    }
+
+    function nextQuestion() {
+      current++;
+      if (current < questions.length) {
+        loadQuestion();
+      } else {
+        document.getElementById("quiz-container").style.display = "none";
+        const scoreDiv = document.getElementById("score");
+        scoreDiv.style.display = "block";
+
+        const percentage = Math.round((score / questions.length) * 100);
+        let message = "做得好！你掌握了稀少性的基本概念！";
+        if (percentage === 100) {
+          message = "🌟 完美！很棒哦！";
+        } else if (percentage >= 80) {
+          message = "👏 非常棒的表現！離滿分不遠了～";
+        } else if (percentage >= 50) {
+          message = "👍 不錯喔！再多加練習會更好！";
+        } else {
+          message = "💡 繼續努力，你會越來越好的！";
+        }
+
+        scoreDiv.style.background = "#c5e3ff";
+        scoreDiv.style.padding = "30px";
+        scoreDiv.style.borderRadius = "20px";
+        scoreDiv.style.maxWidth = "600px";
+        scoreDiv.style.margin = "50px auto";
+        scoreDiv.style.boxShadow = "0 10px 25px rgba(0, 0, 0, 0.2)";
+
+        scoreDiv.innerHTML = `
+           <h1 style="color:#004aad;">🎉 測驗完成！</h1>
+          <p>你的得分是 <strong>${score} / ${questions.length}</strong>（${percentage}%）</p>
+          <p>${message}</p>
+          <button id="return-btn" onclick="location.href='E1.html'">繼續學習經濟學</button>
+          <button id="return-btn" onclick="location.href='index2.html'">返回首頁</button>
+        `;
+
+              }
+            }
+
+    loadQuestion();
+  </script>
+</body>
+</html>
