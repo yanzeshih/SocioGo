@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SocioGO</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      cursor: pointer;
+      font-family: "Arial", sans-serif;
+      background: linear-gradient(to bottom, #53faff, #4754ff, #4754ff);
+      color: white;
+      overflow: hidden;
+      position: relative;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 5rem;
+      margin: 0.5rem 0;
+      z-index: 1;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin: 0.2rem 0;
+      z-index: 1;
+    }
+
+    .floating {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      animation: float 2s ease-in-out infinite;
+      z-index: 1;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .bubble {
+      position: absolute;
+      bottom: -50px;
+      background-color: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      animation: rise 5s linear forwards;
+    }
+
+    @keyframes rise {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-70vh);
+        opacity: 0;
+      }
+    }
+    
+    .fade-out {
+      animation: fadeOut 1s forwards;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body onclick="startGame()">
+  <h1>
+  SocioG<span style="filter: brightness(0) invert(1); font-size: 4rem; display: inline-block; transform: translateY(-6px);">🌐</span>
+  </h1>
+  <div class="floating">- 任點一處進入遊戲 -</div>
+
+  <!-- 泡泡容器 -->
+  <script>
+    function createBubble() {
+      const bubble = document.createElement('div');
+      const size = Math.random() * 20 + 10; // 泡泡大小10~30px
+      const left = Math.random() * 100; // 左邊百分比位置
+      const duration = Math.random() * 3 + 3; // 動畫時間3~6秒
+
+      bubble.classList.add('bubble');
+      bubble.style.width = `${size}px`;
+      bubble.style.height = `${size}px`;
+      bubble.style.left = `${left}%`;
+      bubble.style.animationDuration = `${duration}s`;
+
+      document.body.appendChild(bubble);
+
+      setTimeout(() => {
+        bubble.remove();
+      }, duration * 1000);
+    }
+
+    setInterval(createBubble, 300); // 每0.3秒產生一個泡泡
+
+    function startGame() {
+      document.body.classList.add('fade-out');
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 1000); // 等待 1 秒後跳轉
+    }
+  </script>
+</body>
+</html>

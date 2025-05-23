@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>經濟學模組｜SocioMap</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom,#00eeff, #2433ff);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(5px);
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.6em;
+    }
+
+    header a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1.1em;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px 20px;
+    }
+
+    .map-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 25px;
+      width: 100%;
+      max-width: 700px;
+    }
+
+    .map-tile {
+      background: rgba(255, 255, 255, 0.15);
+      border: 2px solid #ffffff33;
+      border-radius: 20px;
+      padding: 35px 30px;
+      text-align: left;
+      font-size: 1.3em;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .map-tile:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: scale(1.03);
+    }
+
+    .map-tile h3 {
+      margin-bottom: 10px;
+      font-size: 1.6em;
+      color: #ffffff;
+    }
+
+    .map-tile p {
+      font-size: 1.2em;
+      margin: 0;
+      color: #ffffff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background-color: rgba(0, 0, 0, 0.2);
+      font-size: 0.9em;
+      backdrop-filter: blur(5px);
+    }
+
+    .bubble {
+    position: absolute;
+    bottom: -600px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    animation: rise 6s linear forwards;
+    pointer-events: none;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5), 
+                0 0 12px rgba(255, 255, 255, 0.3);
+    }
+
+
+    @keyframes rise {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-80vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📗 經濟學模組</h1>
+    <a href="index.html">← 回首頁</a>
+  </header>
+
+  <main>
+    <section class="map-grid">
+      <div class="map-tile" onclick="goToModule('E1')">
+        <h3>E1：基本經濟概念</h3>
+        <p>稀少性、機會成本</p>
+      </div>
+      <div class="map-tile" onclick="startLevel('E2')">
+        <h3>E2：市場機制與供需</h3>
+        <p>圖表互動題</p>
+      </div>
+      <div class="map-tile" onclick="startLevel('E3')">
+        <h3>E3：市場失靈與外部性</h3>
+        <p>情境選擇題</p>
+      </div>
+      <div class="map-tile" onclick="startLevel('E4')">
+        <h3>E4：總體經濟指標</h3>
+        <p>GDP、通膨、失業</p>
+      </div>
+      <div class="map-tile" onclick="startLevel('E5')">
+        <h3>E5：國際貿易與匯率</h3>
+        <p>模擬挑戰</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 SocioMap</p>
+  </footer>
+
+  <script>
+    function goToModule(moduleId) {
+      window.location.href = moduleId + ".html";
+    }
+    function startLevel(levelId) {
+      window.location.href = levelId + ".html";
+    }
+    
+    function createBubble() {
+      const bubble = document.createElement('div');
+      const size = Math.random() * 20 + 10; // 泡泡大小10~30px
+      const left = Math.random() * 100; // 左邊百分比位置
+      const duration = Math.random() * 3 + 3; // 動畫時間3~6秒
+
+      bubble.classList.add('bubble');
+      bubble.style.width = `${size}px`;
+      bubble.style.height = `${size}px`;
+      bubble.style.left = `${left}%`;
+      bubble.style.animationDuration = `${duration}s`;
+
+      document.body.appendChild(bubble);
+
+      setTimeout(() => {
+        bubble.remove();
+      }, duration * 1000);
+    }
+
+    setInterval(createBubble, 300); // 每0.3秒產生一個泡泡
+  </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>每日任務 - SocioGo</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom right, #53faff, #4754ff);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    header {
+      width: 100%;
+      text-align: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      position: relative;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
+
+    .back-button {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      font-size: 1em;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .back-button:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    .missions {
+      margin-top: 30px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 20px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    .mission {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid #ffffff44;
+      border-radius: 15px;
+      padding: 20px;
+      margin: 20px 0;
+      font-size: 1.2em;
+      line-height: 1.6;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .mission:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.02);
+    }
+
+    .xp {
+      color: #fffd82;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <button class="back-button" onclick="location.href='index.html'">← 返回</button>
+    <h1>🗓️ 每日任務</h1>
+  </header>
+
+  <div class="missions">
+    <div class="mission">
+      🎯 任務一：完成一個關卡<br>
+      💠 獎勵：<span class="xp">100 XP</span>
+    </div>
+    <div class="mission">
+      🔥 任務二：完成三個關卡<br>
+      💠 獎勵：<span class="xp">300 XP</span>
+    </div>
+  </div>
+</body>
+</html>
